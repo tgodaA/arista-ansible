@@ -1,0 +1,49 @@
+---
+all:
+  children:
+    AVD:
+      children:
+        AVD_FABRIC:
+          children:
+            AVD_SPINES:
+              hosts:
+                AVD-SPINE1:
+                  ansible_host: 10.255.89.188
+                AVD-SPINE2:
+                  ansible_host: 10.255.8.93
+            AVD_L3LEAFS:
+              children:
+                AVD_LEAF1:
+                  hosts:
+                    AVD-LEAF1A:
+                      ansible_host: 10.255.43.10
+
+                    AVD-LEAF1B:
+                      ansible_host: 10.255.23.14
+                AVD_LEAF2:
+                  hosts:
+                    AVD-LEAF2A:
+                      ansible_host: 10.255.101.102
+                    AVD-LEAF2B:
+                      ansible_host: 10.255.97.30
+          vars:
+            ansible_connection: httpapi
+            ansible_network_os: eos
+            ansible_user: arista
+            # should use vault for passwords
+            ansible_ssh_pass: arista
+            ansible_become: true
+            ansible_become_method: enable
+            ansible_httpapi_port: 443
+            ansible_httpapi_host: '{{ ansible_host }}'
+            ansible_httpapi_use_ssl: true
+            ansible_httpapi_validate_certs: false
+        AVD_TENANTS_NETWORKS:
+          children:
+            AVD_L3LEAFS:
+            #AVD_L2LEAFS:
+        AVD_SERVERS:
+          children:
+            AVD_L3LEAFS:
+            #AVD_L2LEAFS:
+

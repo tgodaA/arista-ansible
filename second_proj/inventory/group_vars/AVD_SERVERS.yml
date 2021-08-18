@@ -1,0 +1,29 @@
+---
+port_profiles:
+  TENANT_A_B:
+    mode: trunk
+    vlans: "110-111,210-211"
+  TENANT_A:
+    mode: access
+    vlans: "110"
+  TENANT_B:
+    mode: trunk
+    vlans: "210-211"
+
+servers:
+  server01:
+    rack: RackA
+    adapters:
+      - type: nic
+        server_ports: [Ethernet1, Ethernet2]
+        switch_ports: [Ethernet11, Ethernet11]
+        switches: [AVD-LEAF1A, AVD-LEAF1B]
+        profile: TENANT_A
+  server02:
+    rack: RackA
+    adapters:
+      - type: nic
+        server_ports: [Ethernet2, Ethernet1]
+        switch_ports: [Ethernet12, Ethernet12]
+        switches: [AVD-LEAF1A, AVD-LEAF1B]
+        profile: TENANT_A

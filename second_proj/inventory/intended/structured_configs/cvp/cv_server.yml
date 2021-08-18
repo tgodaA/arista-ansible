@@ -1,0 +1,13 @@
+---
+CVP_DEVICES:
+CVP_CONTAINERS:
+  AVD_FABRIC:
+    parent_container: Tenant
+  AVD_L3LEAFS:
+    parent_container: AVD_FABRIC
+  AVD_LEAF1:
+    parent_container: AVD_L3LEAFS
+  AVD_LEAF2:
+    parent_container: AVD_L3LEAFS
+  AVD_SPINES:
+    parent_container: AVD_FABRIC

@@ -1,0 +1,6 @@
+# EOS eAPI state validation
+- hosts: AVD_FABRIC
+  tasks:
+    - name: audit fabric state using EOS eAPI connection
+      import_role:
+         name: arista.avd.eos_validate_state

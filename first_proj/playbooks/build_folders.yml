@@ -1,0 +1,10 @@
+---
+- name: Create Output Folders
+  hosts: AVD_FABRIC
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: build local folders
+      tags: [build]
+      import_role:
+        name: arista.avd.build_output_folders

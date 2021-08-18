@@ -1,0 +1,53 @@
+---
+- name: Create Output Folders
+  hosts: AVD_FABRIC
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: build local folders
+      tags: [build]
+      import_role:
+        name: arista.avd.build_output_folders
+
+- name: Manage Arista EOS EVPN/VXLAN Configuration
+  hosts: AVD_FABRIC
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+    - arista.cvp
+  tasks:
+    - name: generate intended variables
+      tags: [build, generate]
+      import_role:
+        name: arista.avd.eos_designs
+
+    - name: generate device intended config and documentation
+      tags: [build, generate]
+      import_role:
+        name: eos_cli_config_gen
+
+- name: CVP configlet upload and deploy
+  hosts: cv_server
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+    - arista.cvp
+  tasks:
+    - name: upload cvp configlets
+      import_role:
+          name: arista.avd.cvp_configlet_upload
+      vars:
+        configlet_directory: 'configlets/'
+        file_extension: 'txt'
+        configlets_cvp_prefix: 'AVD'
+
+    - name: deploy configuration via CVP
+      import_role:
+          name: arista.avd.eos_config_deploy_cvp
+      vars:
+          container_root: 'AVD_FABRIC'
+          configlets_prefix: 'AVD'
+          device_filter: 'AVD'
+          state: present

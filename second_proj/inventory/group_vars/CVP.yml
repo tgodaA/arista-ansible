@@ -1,0 +1,38 @@
+---
+ztp:
+  default:
+    registration: 'http://192.168.0.5/ztp/bootstrap'
+    gateway: 192.168.0.5
+    nameservers:
+      - '192.168.0.5'
+  general:
+  #DHCP pool
+    subnets:
+      - network: 192.168.0.0
+        netmask: 255.255.255.0
+        gateway: 192.168.0.5
+        nameservers:
+          - '192.168.0.5'
+        start: 192.168.0.200
+        end: 192.168.0.250
+        lease_time: 300
+  clients:
+  # AVD/CVP Integration
+    - name: AVD-SPINE1
+      mac: '02:31:12:df:2b:ea'
+      ip4: 192.168.0.1
+    - name: AVD-SPINE2
+      mac: '02:40:04:a9:2b:81'
+      ip4: 192.168.0.2
+    - name: AVD-LEAF1A
+      mac: '0e:7e:a4:1d:01:30'
+      ip4: 192.168.0.11
+    - name: AVD-LEAF1B
+      mac: '12:f2:50:cc:25:17'
+      ip4: 192.168.0.12
+    - name: AVD-LEAF2A
+      mac: '0a:08:57:9d:65:c6'
+      ip4: 192.168.0.13
+    - name: AVD-LEAF2B
+      mac: '0a:8c:2a:d3:71:9e'
+      ip4: 192.168.0.14
